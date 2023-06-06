@@ -22,14 +22,26 @@ const buildRestResponse = async (searchResults: Result[], auth: any) => {
 
         console.dir({ sanitizedEntity }, { depth: 10 });
 
-        if (contentType.populate) {
+        if (contentType.populateOptions) {
           const objPopulatedData = {};
 
-          const populatedFields = contentType.populate;
+          const populatedFields = contentType.populateOptions.populate;
 
           for (const field of populatedFields) {
             const fieldData = fuzzyRes.obj[field];
-            objPopulatedData[field] = fieldData;
+            const keysToInclude = contentType.populateOptions.populatedKeys
+              .filter((k) => k.startsWith(field))
+              .map((k) => k.replace(`${field}.`, ''));
+
+            const includedPopulatedData = {};
+
+            for (const fK of Object.keys(fieldData)) {
+              if (keysToInclude.includes(fK)) {
+                includedPopulatedData[fK] = fieldData[fK];
+              }
+            }
+
+            objPopulatedData[field] = includedPopulatedData;
           }
 
           sanitizedEntity = {

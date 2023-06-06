@@ -2,7 +2,7 @@ import settingsService from '../services/settingsService';
 
 const buildDbQuery = (locale: string, modelUid: string) => {
   const { contentTypes } = settingsService().get();
-  const { queryConstraints , populate } = contentTypes.find(
+  const { queryConstraints , populateOptions } = contentTypes.find(
     (entry) => entry.uid === modelUid
   );
   return {
@@ -11,7 +11,7 @@ const buildDbQuery = (locale: string, modelUid: string) => {
       ...(queryConstraints?.where && { ...queryConstraints.where }),
       ...(locale && { locale: locale }),
     },
-    populate: populate,
+    populate: populateOptions.populate,
   };
 };
 

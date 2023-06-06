@@ -19,7 +19,14 @@ const pluginConfigSchema = yup.object({
           ),
         })
         .required(),
-        populate : yup.array()
+        populateOptions : yup.object({
+          populate : yup.array().of(
+            yup.string().required()
+          ),
+          populatedKeys : yup.array().of(
+            yup.string().required()
+          )
+        })
     })
   ),
 });
