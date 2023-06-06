@@ -22,10 +22,10 @@ const pluginConfigSchema = yup.object({
         populateOptions : yup.object({
           populate : yup.array().of(
             yup.string().required()
-          ),
+          ).required(),
           populatedKeys : yup.array().of(
             yup.string().required()
-          )
+          ).required()
         })
     })
   ),
