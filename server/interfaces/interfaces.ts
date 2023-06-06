@@ -25,6 +25,10 @@ export interface ContentType {
   transliterate?: boolean;
   fuzzysortOptions: FuzzySortOptions;
   model: Schema & { uid: string; responseName: string; modelName: string };
+  populateOptions: {
+    populate: string[];
+    populatedKeys: string[];
+  };
 }
 
 export interface FilteredEntry {

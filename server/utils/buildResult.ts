@@ -23,7 +23,7 @@ export default ({
       });
     });
   }
-
+  
   return {
     pluralName: model.pluralName,
     schemaInfo: model.schemaInfo,

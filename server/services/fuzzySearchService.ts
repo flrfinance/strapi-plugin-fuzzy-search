@@ -34,7 +34,7 @@ export default () => ({
       const keys = model.fuzzysortOptions.keys.map((key) => key.name);
 
       let result = buildResult({ model, keys, query });
-
+      
       if (model.transliterate) {
         result = buildTransliteratedResult({ model, keys, query, result });
       }
