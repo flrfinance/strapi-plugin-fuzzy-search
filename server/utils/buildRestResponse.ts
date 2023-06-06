@@ -16,11 +16,7 @@ const buildRestResponse = async (searchResults: Result[], auth: any) => {
 
         const schema = strapi.getModel(res.uid);
 
-        console.dir({ obj: fuzzyRes.obj, schema }, { depth: 10 });
-
         let sanitizedEntity = await sanitizeOutput(fuzzyRes.obj, schema, auth);
-
-        console.dir({ sanitizedEntity }, { depth: 10 });
 
         if (contentType.populateOptions) {
           const objPopulatedData = {};
