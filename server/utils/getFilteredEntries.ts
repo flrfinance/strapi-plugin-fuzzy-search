@@ -2,7 +2,7 @@ import settingsService from '../services/settingsService';
 
 const buildDbQuery = (locale: string, modelUid: string) => {
   const { contentTypes } = settingsService().get();
-  const { queryConstraints } = contentTypes.find(
+  const { queryConstraints , populate } = contentTypes.find(
     (entry) => entry.uid === modelUid
   );
   return {
@@ -11,13 +11,18 @@ const buildDbQuery = (locale: string, modelUid: string) => {
       ...(queryConstraints?.where && { ...queryConstraints.where }),
       ...(locale && { locale: locale }),
     },
+    populate: populate,
   };
 };
 
 const getFilteredEntries = async (locale: string, modelUid: string) => {
-  return await strapi.db
-    .query(modelUid)
-    .findMany(buildDbQuery(locale, modelUid));
+  const q = buildDbQuery(locale, modelUid);
+    
+  const res = await strapi.db
+      .query(modelUid)
+      .findMany(q);
+    
+  return res;
 };
 
 export default getFilteredEntries;
