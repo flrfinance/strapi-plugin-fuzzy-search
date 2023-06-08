@@ -31,6 +31,10 @@ const buildRestResponse = async (searchResults: Result[], auth: any) => {
 
             const includedPopulatedData = {};
 
+            if (!fieldData) {
+              continue;
+            }
+
             for (const fK of Object.keys(fieldData)) {
               if (keysToInclude.includes(fK)) {
                 includedPopulatedData[fK] = fieldData[fK];
