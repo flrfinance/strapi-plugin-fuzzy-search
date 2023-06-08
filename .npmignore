@@ -4,4 +4,4 @@
 /assets
 .vscode/
 .idea/
-
+coverage/
