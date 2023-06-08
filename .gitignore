@@ -4,3 +4,5 @@ server/.DS_Store
 .DS_Store
 /dist
 yarn.lock
+/coverage
+junit.xml
