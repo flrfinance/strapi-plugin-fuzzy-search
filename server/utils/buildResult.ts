@@ -10,6 +10,16 @@ export default ({
   keys: string[];
   query: string;
 }) => {
+  for (const entry of model[model.pluralName]) {
+    for (const key of Object.keys(entry)) {
+      const value = entry[key];
+
+      if (Array.isArray(value)) {
+        entry[key] = JSON.stringify(value);
+      }
+    }
+  }
+
   if (model.fuzzysortOptions.characterLimit) {
     model[model.pluralName].forEach((entry) => {
       const entryKeys = Object.keys(entry);
@@ -23,7 +33,7 @@ export default ({
       });
     });
   }
-  
+
   return {
     pluralName: model.pluralName,
     schemaInfo: model.schemaInfo,
