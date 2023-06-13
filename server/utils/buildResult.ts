@@ -1,5 +1,6 @@
 import fuzzysort from 'fuzzysort';
 import { Entity, FilteredEntry } from '../interfaces/interfaces';
+import isJson from './isJSON';
 
 export default ({
   model,
@@ -34,7 +35,7 @@ export default ({
     });
   }
 
-  return {
+  const result = {
     pluralName: model.pluralName,
     schemaInfo: model.schemaInfo,
     uid: model.uid,
@@ -50,4 +51,16 @@ export default ({
         ),
     }),
   };
+
+  for (const entry of result.fuzzysortResults) {
+    for (const key of Object.keys(entry.obj)) {
+      const value = entry.obj[key];
+
+      if (isJson(value) && Array.isArray(JSON.parse(value))) {
+        entry.obj[key] = JSON.parse(value);
+      }
+    }
+  }
+
+  return result;
 };

@@ -61,5 +61,9 @@ describe('buildResult', () => {
     console.dir(result, { depth: null });
 
     expect(result.fuzzysortResults.length).toBe(1);
+
+    expect(result.fuzzysortResults[0]["obj"]["name"]).toBe("ququmber");
+
+    expect(result.fuzzysortResults[0]["obj"]["artists"][0]["Name"]).toBe("John Wick");
   });
 });
