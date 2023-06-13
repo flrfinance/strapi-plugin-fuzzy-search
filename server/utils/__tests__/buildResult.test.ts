@@ -19,8 +19,8 @@ describe('buildResult', () => {
       keys: [
         { name: 'name', weight: 100 },
         { name: 'play_type.title', weight: 100 },
-        { name: 'artists.Name', weight: 100 },
         { name: 'artists', weight: 100 },
+        { name: 'artists.Name', weight: 100 },
       ],
     },
     plays: [
@@ -38,6 +38,7 @@ describe('buildResult', () => {
             id: 1,
             Name: 'John Wick',
             description: 'yeah, that one',
+            somethingsElse : "something else",
             createdAt: '2023-04-05T15:03:15.660Z',
             updatedAt: '2023-04-05T17:01:17.867Z',
             publishedAt: '2023-04-05T15:03:21.793Z',
@@ -58,12 +59,23 @@ describe('buildResult', () => {
 
   test('can search nested array', () => {
     const result = buildResult({ model, keys, query });
-    console.dir(result, { depth: null });
 
     expect(result.fuzzysortResults.length).toBe(1);
 
-    expect(result.fuzzysortResults[0]["obj"]["name"]).toBe("ququmber");
+    expect(result.fuzzysortResults[0]['obj']['name']).toBe('ququmber');
 
-    expect(result.fuzzysortResults[0]["obj"]["artists"][0]["Name"]).toBe("John Wick");
+    expect(result.fuzzysortResults[0]['obj']['artists'][0]['Name']).toBe(
+      'John Wick'
+    );
+  });
+
+  test("search nested array, don't search not included fields", () => {
+    const result = buildResult({
+      model,
+      keys,
+      query : "somethings",
+    });
+
+    expect(result.fuzzysortResults.length).toBe(0);
   });
 });

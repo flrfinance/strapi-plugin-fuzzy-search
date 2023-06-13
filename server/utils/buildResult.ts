@@ -13,9 +13,29 @@ export default ({
 }) => {
   for (const entry of model[model.pluralName]) {
     for (const key of Object.keys(entry)) {
-      const value = entry[key];
+      let value = entry[key];
 
       if (Array.isArray(value)) {
+        const keyToSearchArray = keys.find((k) => k === key);
+
+        if (!keyToSearchArray) continue;
+
+        const isArrayOfObjects = value.every(
+          (v) => typeof v === 'object' && !!v
+        );
+
+        if (isArrayOfObjects) {
+          const keysToIncludeForArray = keys
+            .filter((k) => k.startsWith(`${key}.`))
+            .map((k) => k.replace(`${key}.`, ''));
+
+          value.map((v) => {
+            for (const k of Object.keys(v)) {
+              if (!keysToIncludeForArray.includes(k)) delete v[k];
+            }
+          });
+        }
+
         entry[key] = JSON.stringify(value);
       }
     }
