@@ -1,5 +1,8 @@
-function isJson(item) {
-  let value = typeof item !== 'string' ? JSON.stringify(item) : item;
+function isJson(item: any) {
+  if (typeof item !== 'string') return false;
+
+  let value = item;
+
   try {
     value = JSON.parse(value);
   } catch (e) {
@@ -9,4 +12,8 @@ function isJson(item) {
   return typeof value === 'object' && value !== null;
 }
 
-export default isJson;
+function tryGetJson(item: any) {
+  return isJson(item) ? JSON.parse(item) : null;
+}
+
+export { isJson, tryGetJson };

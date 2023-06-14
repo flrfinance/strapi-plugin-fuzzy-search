@@ -1,6 +1,6 @@
 import fuzzysort from 'fuzzysort';
 import { Entity, FilteredEntry } from '../interfaces/interfaces';
-import isJson from './isJSON';
+import { isJson, tryGetJson } from './isJSON';
 
 export default ({
   model,
@@ -76,8 +76,10 @@ export default ({
     for (const key of Object.keys(entry.obj)) {
       const value = entry.obj[key];
 
-      if (isJson(value) && Array.isArray(JSON.parse(value))) {
-        entry.obj[key] = JSON.parse(value);
+      const tryParse = tryGetJson(value);
+
+      if (tryParse && Array.isArray(tryParse)) {
+        entry.obj[key] = tryParse;
       }
     }
   }
