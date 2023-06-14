@@ -19,7 +19,7 @@ const getFilteredEntries = async (locale: string, modelUid: string) => {
   const q = buildDbQuery(locale, modelUid);
 
   const res = await strapi.db.query(modelUid).findMany(q);
-
+  
   return res;
 };
 

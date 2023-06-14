@@ -29,15 +29,33 @@ const buildRestResponse = async (searchResults: Result[], auth: any) => {
               .filter((k) => k.startsWith(field))
               .map((k) => k.replace(`${field}.`, ''));
 
-            const includedPopulatedData = {};
+            let includedPopulatedData;
 
             if (!fieldData) {
               continue;
             }
 
-            for (const fK of Object.keys(fieldData)) {
-              if (keysToInclude.includes(fK)) {
-                includedPopulatedData[fK] = fieldData[fK];
+            if (Array.isArray(fieldData)) {
+              includedPopulatedData = [];
+
+              for (const entry of fieldData) {
+                const includedEntry = {};
+
+                for (const fK of Object.keys(entry)) {
+                  if (keysToInclude.includes(fK)) {
+                    includedEntry[fK] = entry[fK];
+                  }
+                }
+
+                includedPopulatedData.push(includedEntry);
+              }
+            } else {
+              includedPopulatedData = {};
+
+              for (const fK of Object.keys(fieldData)) {
+                if (keysToInclude.includes(fK)) {
+                  includedPopulatedData[fK] = fieldData[fK];
+                }
               }
             }
 
