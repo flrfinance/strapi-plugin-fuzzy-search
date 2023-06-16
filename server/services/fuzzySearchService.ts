@@ -24,7 +24,8 @@ export default () => ({
           fuzzysortOptions: contentType.fuzzysortOptions,
           [contentType.model.info.pluralName]: await getFilteredEntries(
             locale,
-            contentType.model.uid
+            contentType.model.uid,
+            contentType.modelName
           ),
         };
       })

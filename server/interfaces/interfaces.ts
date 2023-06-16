@@ -41,6 +41,7 @@ export interface FilteredEntry {
 }
 
 export interface Result {
+  modelName : string;
   pluralName: string;
   schemaInfo: SchemaInfo;
   uid: string;

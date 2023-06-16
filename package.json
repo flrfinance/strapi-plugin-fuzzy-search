@@ -1,6 +1,6 @@
 {
   "name": "@flrfinance/strapi-plugin-fuzzy-search",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Register a weighted fuzzy search endpoint for Strapi Headless CMS you can add your content types to in no time.",
   "strapi": {
     "displayName": "Fuzzy Search",

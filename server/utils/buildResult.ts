@@ -56,6 +56,7 @@ export default ({
   }
 
   const result = {
+    modelName : model.modelName,
     pluralName: model.pluralName,
     schemaInfo: model.schemaInfo,
     uid: model.uid,
