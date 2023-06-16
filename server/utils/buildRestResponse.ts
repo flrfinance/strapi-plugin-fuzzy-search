@@ -8,7 +8,7 @@ const buildRestResponse = async (searchResults: Result[], auth: any) => {
   const { contentTypes } = settingsService().get();
 
   for (const res of searchResults) {
-    resultsResponse[res.pluralName] = await Promise.all(
+    resultsResponse[res.modelName] = await Promise.all(
       res.fuzzysortResults.map(async (fuzzyRes) => {
         const contentType = contentTypes.find(
           (contentType) => contentType.uid === res.uid

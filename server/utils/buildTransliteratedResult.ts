@@ -33,6 +33,7 @@ export default ({
   const { pluralName, uid, schemaInfo, fuzzysortOptions } = model;
 
   const transliteratedResult: Result = {
+    modelName : "",
     pluralName,
     uid,
     schemaInfo,
